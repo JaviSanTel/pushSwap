@@ -1,5 +1,22 @@
 
 
+0. FLAGS. hay que detectar flag como argumentos, pueden indicar qué estrategia utlizar:
+
+	--simple
+	--medium
+	--complex
+	--adaptive
+
+puede haber flags o no. DECIDIDO si DOS FLAGS ----ERROR---- CONSULTAR.
+Entonces primero paso todos los argumentos por strategy_flag (0.1) y ahí si ha encontrado flag, a 
+variable "strategy" (un int) le doy el valor de la flag (la inicialicé) si en el siguiente 
+argumento vuelve a encontrar flag, llama a error_exit.
+
+	0.1. strategy_flag
+		En stategy_flag llamo a un strcmp (el de la libf es strncmp) y le mando cada
+		posible flag (--simple, --medium, --complex, --adaptive) que lo compare con 
+		cada argumento. Si si, devuelve un número diferente, dependiendo de la flag.
+
 1. Protección si solo hay un argumento. (solo el programa)
 	if (argc < 2)  --- return (0);
 
