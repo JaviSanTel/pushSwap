@@ -1,0 +1,9 @@
+# Editor
+.vscode/
+
+# Objetos y binarios de compilación
+*.o
+*.a
+a.out
+push_swap
+checker

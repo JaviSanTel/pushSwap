@@ -241,6 +241,55 @@ en 100 y 500, PESE a tener peor clase teórica — porque a estos tamaños pesa 
 constante que el exponente (`log₂500≈9` vs `√500≈22` no están tan lejos, y afinamos
 mucho la constante del chunk).
 
+### 4.7 Comportamiento del chunk según el índice de desorden (N=500)
+
+Barrido simulado (media 3 semillas por punto). Listas generadas partiendo de la
+invertida y reduciendo inversiones hasta el desorden objetivo. Radix constante (6778).
+
+| Desorden | chunk (medio) | radix |
+|----------|---------------|-------|
+| 0.10 | 3816 | 6778 |
+| 0.20 | 4164 | 6778 |
+| 0.30 | 4236 | 6778 |
+| 0.40 | 4344 | 6778 |
+| 0.50 | 4550 | 6778 |
+| 0.60 | 4761 | 6778 |
+| 0.70 | 4673 | 6778 |
+| 0.80 | 4768 | 6778 |
+| 0.90 | 4672 | 6778 |
+| 0.99 | 3748 | 6778 |
+| 1.00 | **1518** | 6778 |
+| **~0.5 ALEATORIO PURO** | **5278** | 6778 |
+
+**Tres conclusiones (clave para el README y la defensa):**
+
+1. **El chunk gana al radix en TODO el rango de desorden**, incluso en su peor caso
+   (aleatorio puro, 5278 < 6778).
+
+2. **La curva es una "joroba", no crece**: el coste sube hasta ~0.6-0.8 y luego BAJA.
+   La lista invertida del todo (desorden 1.0) es el caso MÁS FÁCIL (1518), no el más
+   difícil — porque está muy estructurada (los valores de cada chunk van en bloque).
+
+3. **El índice de desorden NO determina el coste por sí solo — la ESTRUCTURA importa
+   más.** El `0.5` construido da 4550, pero el `0.5` aleatorio puro da 5278. Mismo
+   índice, coste muy distinto. El índice es un resumen "con pérdida": dice cuántos
+   pares están mal, no cómo se distribuyen. El peor caso real del chunk es el
+   **aleatorio uniforme** (~5278), que es justo lo que usa el evaluador (`shuf`).
+
+### 4.8 Implicación para la ADAPTATIVA (decisión de diseño a justificar)
+
+Como el chunk gana al radix en todo el rango, la adaptativa "óptima en operaciones"
+usaría siempre el chunk. PERO el subject OBLIGA a usar O(n log n) (radix) en
+desorden ≥ 0.5. El caso de evaluación (500 aleatorios con `shuf`) cae en ~0.5:
+- Si la adaptativa lo enruta a **radix** (cumpliendo el mandato): 6778 → aprueba y es
+  "bueno" (<8000), pero NO llega a "excelente" (<5500).
+- Si lo enrutara al **chunk**: 5278 → excelente, pero incumple el mandato de clase.
+
+Aprobar está asegurado en cualquier caso (radix 6778 << 12000). Solo se pierde el
+"excelente" del caso aleatorio de la adaptativa. **Esto hay que decidirlo y
+justificarlo en el README** (respetar el mandato de complejidad del subject vs.
+minimizar operaciones). Nota: forzando `--medium` (chunk) sí se saca el excelente.
+
 ---
 
 ## 5. SIMPLE — selección por mínimos  (estrategia O(n²), POR IMPLEMENTAR)

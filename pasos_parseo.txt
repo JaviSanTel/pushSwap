@@ -52,3 +52,16 @@ argumento vuelve a encontrar flag, llama a error_exit.
 	le pasamos el array, NUMBERS, y cuantos elementos tiene el arrays, COUNT.
 	 Entonces, que si encuentra duplicidad, pues llamamos a 4.3. y salimos y fin. Que no hay
 	 duplicidad, vale, pues entonces tenemos un array con los números guardados.
+
+6. He añadido el archivo psindex que es el que indexa todo el array que has creado y hacer k corra 
+	los numeros del 1 a N. 
+
+7. Tambien he creado el archivo disorder que seria la funcion que calcula el indice de desorden en 
+	la lista.
+
+8. Por ultimo he hecho un archivo llamado diseño_algoritmo que es lo k dice el nombre XD. Despues de
+	dos dias de cabezoneria y papeles gastados ya tengo los algoritmos para el medio y el dificil. 
+	El medio es el ksort y el dificil el radix. Ya se perfectamente como implementar los dos y en ese 
+	documento lo tengo todo detallado y en pseudocodigo para k lo implementemos en algun momento al codigo.
+	Si puedo mañana empezare con ello. 
+
