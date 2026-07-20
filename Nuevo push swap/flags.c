@@ -34,7 +34,7 @@ int has_conflict(int *counts)
     return (total > 1);
 }
 
-void init_flags(int *flag_counts)
+void ft_init_flags(int *flag_counts)
 {
     int i;
 
