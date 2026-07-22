@@ -6,7 +6,7 @@
 /*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 11:27:45 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/22 14:35:48 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/22 16:37:52 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,33 @@ t_list	*build_list(int *numbers, int count);
 int		find_min_position(t_list *a);
 void	rotate_to_top(t_list *a, int pos, int size);
 void	sort_simple(t_list **a, t_list **b, int n);
+
+//move_swap.c
+
+void	swap(t_list *stack);
+int		swap_a(t_list *stack);
+int		swap_b(t_list *stack);
+int		swap_ss(t_list *a, t_list *b);
+
+//move_push.c
+
+void	push(t_list **dest, t_list **src);
+int		pa(t_list **a, t_list **b);
+int		pb(t_list **a, t_list **b);
+
+//move_rotate.c
+
+void	rotate(t_list *stack);
+int		rotate_a(t_list *stack);
+int		rotate_b(t_list *stack);
+int		rotate_rr(t_list *a, t_list *b);
+
+//move_reverse_rotate.c
+
+void	reverse_rotate(t_list *stack);
+int		reverse_rotate_a(t_list *stack);
+int		reverse_rotate_b(t_list *stack);
+int		reverse_rotate_rrr(t_list *a, t_list *b);
 
 //meter prototipo de las funciones.
 
