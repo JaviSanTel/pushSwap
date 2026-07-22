@@ -12,9 +12,9 @@
 
 #include "push_swap.h"
 
-void	push(t_list **dest, t_list **src)
+void	push(t_stack **dest, t_stack **src)
 {
-	t_list	*node;
+	t_stack	*node;
 
 	if (src == NULL || *src == NULL)
 		return ;
@@ -29,14 +29,14 @@ void	push(t_list **dest, t_list **src)
 	*dest = node;
 }
 
-int	pa(t_list **a, t_list **b)
+int	pa(t_stack **a, t_stack **b)
 {
 	push(a, b);
 	write(1, "pa\n", 3);
 	return (1);
 }
 
-int	pb(t_list **a, t_list **b)
+int	pb(t_stack **a, t_stack **b)
 {
 	push(b, a);
 	write(1, "pb\n", 3);

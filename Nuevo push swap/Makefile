@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = push_swap
 
 LIBFT_DIR = ./LIBFT
 
@@ -22,25 +22,27 @@ CFLAGS = -Wall -Werror -Wextra
 
 RM = rm -f
 
-AR = ar rcs
-
 SRC =	parser.c \
 		utils.c \
 		flags.c \
 		list_utils.c \
 		sort_simple.c \
+		move_swap.c \
+		move_push.c \
+		move_rotate.c \
+		move_reverse_rotate.c \
+		main.c
 
 OBJ = $(SRC:.c=.o)
 
-all = $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT_DIR)
-	@cp $(LIBFT) $(NAME)
-	$(AR) $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(FLAGS) -I. -I$(LIBFT_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I. -I$(LIBFT_DIR) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)

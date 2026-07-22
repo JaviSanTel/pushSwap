@@ -14,16 +14,16 @@
 # define PUSH_SWAP_H
 # include <unistd.h>
 # include <stdlib.h>
-# include <fcntl.h>
 # include <limits.h>
+# include "LIBFT/libft.h"
 // comprobar que librerías son necesarias.
 
-typedef struct s_list
+typedef struct s_stack
 {
-	int				*content;
-	struct s_list	*next;
-	struct s_list	*prev;
-}	t_list;
+	int		content;
+	struct s_stack	*next;
+	struct s_stack	*prev;
+}	t_stack;
 
 //parser.c
 int		is_valid_number(const char *str);
@@ -48,41 +48,41 @@ void	ft_init_flags(int *flag_coun);
 
 //list_utils.c
 
-t_list	*new_node(int value);
-t_list	*build_list(int *numbers, int count);
+t_stack	*new_node(int value);
+t_stack	*build_list(int *numbers, int count);
 
 //sort_simple.c
 
-int		find_min_position(t_list *a);
-void	rotate_to_top(t_list *a, int pos, int size);
-void	sort_simple(t_list **a, t_list **b, int n);
+int		find_min_position(t_stack *a);
+void	rotate_to_top(t_stack *a, int pos, int size);
+void	sort_simple(t_stack **a, t_stack **b, int n);
 
 //move_swap.c
 
-void	swap(t_list *stack);
-int		swap_a(t_list *stack);
-int		swap_b(t_list *stack);
-int		swap_ss(t_list *a, t_list *b);
+void	swap(t_stack *stack);
+int		swap_a(t_stack *stack);
+int		swap_b(t_stack *stack);
+int		swap_ss(t_stack *a, t_stack *b);
 
 //move_push.c
 
-void	push(t_list **dest, t_list **src);
-int		pa(t_list **a, t_list **b);
-int		pb(t_list **a, t_list **b);
+void	push(t_stack **dest, t_stack **src);
+int		pa(t_stack **a, t_stack **b);
+int		pb(t_stack **a, t_stack **b);
 
 //move_rotate.c
 
-void	rotate(t_list *stack);
-int		rotate_a(t_list *stack);
-int		rotate_b(t_list *stack);
-int		rotate_rr(t_list *a, t_list *b);
+void	rotate(t_stack *stack);
+int		rotate_a(t_stack *stack);
+int		rotate_b(t_stack *stack);
+int		rotate_rr(t_stack *a, t_stack *b);
 
 //move_reverse_rotate.c
 
-void	reverse_rotate(t_list *stack);
-int		reverse_rotate_a(t_list *stack);
-int		reverse_rotate_b(t_list *stack);
-int		reverse_rotate_rrr(t_list *a, t_list *b);
+void	reverse_rotate(t_stack *stack);
+int		reverse_rotate_a(t_stack *stack);
+int		reverse_rotate_b(t_stack *stack);
+int		reverse_rotate_rrr(t_stack *a, t_stack *b);
 
 //meter prototipo de las funciones.
 

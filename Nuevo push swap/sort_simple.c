@@ -12,9 +12,9 @@
 
 #include "push_swap.h"
 
-int	find_min_position(t_list *a)
+int	find_min_position(t_stack *a)
 {
-	t_list	*node;
+	t_stack	*node;
 	int		min_val;
 	int		min_pos;
 	int		pos;
@@ -36,7 +36,7 @@ int	find_min_position(t_list *a)
 	return (min_pos);
 }
 
-void	rotate_to_top(t_list *a, int pos, int size)
+void	rotate_to_top(t_stack *a, int pos, int size)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ void	rotate_to_top(t_list *a, int pos, int size)
 	}
 }
 
-void	sort_simple(t_list **a, t_list **b, int n)
+void	sort_simple(t_stack **a, t_stack **b, int n)
 {
 	int	i;
 	int	pos;

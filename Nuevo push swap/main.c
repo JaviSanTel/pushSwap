@@ -35,8 +35,8 @@ int	main(int argc, char **argv)
 	int		flag_coun[5];
 	int		*numbers;
 	int		count;
-	t_list	*a;
-	t_list	*b;
+	t_stack	*a;
+	t_stack	*b;
 
 	if (argc < 2)
 		return (0);

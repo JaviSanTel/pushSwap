@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-t_list	*new_node(int value)
+t_stack	*new_node(int value)
 {
-	t_list	*node;
+	t_stack	*node;
 
-	node = malloc(sizeof(t_list));
+	node = malloc(sizeof(t_stack));
 	if (!node)
 		return (NULL);
 	node->content = value;
@@ -25,11 +25,11 @@ t_list	*new_node(int value)
 	return (node);
 }
 
-t_list	*build_list(int *numbers, int count)
+t_stack	*build_list(int *numbers, int count)
 {
-	t_list	*head;
-	t_list	*last;
-	t_list	*node;
+	t_stack	*head;
+	t_stack	*last;
+	t_stack	*node;
 	int		i;
 
 	head = NULL;

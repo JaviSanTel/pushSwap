@@ -12,9 +12,9 @@
 
 #include "push_swap.h"
 
-void	swap(t_list *stack)
+void	swap(t_stack *stack)
 {
-	t_list	*aux;
+	t_stack	*aux;
 	int		tmp;
 
 	aux = stack;
@@ -26,21 +26,21 @@ void	swap(t_list *stack)
 	}
 }
 
-int	swap_a(t_list *stack)
+int	swap_a(t_stack *stack)
 {
 	swap(stack);
 	write(1, "sa\n", 3);
 	return (1);
 }
 
-int	swap_b(t_list *stack)
+int	swap_b(t_stack *stack)
 {
 	swap(stack);
 	write(1, "sb\n", 3);
 	return (1);
 }
 
-int	swap_ss(t_list *a, t_list *b)
+int	swap_ss(t_stack *a, t_stack *b)
 {
 	swap(a);
 	swap(b);
