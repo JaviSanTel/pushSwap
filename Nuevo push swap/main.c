@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: plopez-l <plopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 14:55:51 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/22 14:58:45 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/24 13:49:28 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ int	main(int argc, char **argv)
 	if (has_conflict(flag_coun) || has_duplicates(numbers, count))
 	{
 		free(numbers);
+		error_exit();
+	}
+	numbers = psindex(numbers, count);
+	if (!numbers)
+	{
+		free (numbers);
 		error_exit();
 	}
 	a = build_list(numbers, count);

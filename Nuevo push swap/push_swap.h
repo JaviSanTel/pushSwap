@@ -6,7 +6,7 @@
 /*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 11:27:45 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/22 16:37:52 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/24 13:46:29 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ void	reverse_rotate(t_stack *stack);
 int		reverse_rotate_a(t_stack *stack);
 int		reverse_rotate_b(t_stack *stack);
 int		reverse_rotate_rrr(t_stack *a, t_stack *b);
+
+//psindex.c
+
+int		*psindex(int *numbers, int count);
+
+
 
 //meter prototipo de las funciones.
 
