@@ -41,10 +41,10 @@ int main(void)
 {
     int ordenada[]  = {1,2,3,4,5};
     int invertida[] = {5,4,3,2,1};
-    int media[]     = {3,1,2};
+    int media[]     = {3,1,6,2};
 
     printf ("ordenada  (esperado 0)    -> %f\n", disorder(ordenada, 5));
     printf ("invertida (esperado 1)    -> %f\n", disorder(invertida, 5));
-    printf ("media     (esperado 0.67) -> %f\n", disorder(media, 3));
+    printf ("media     (esperado 0.67) -> %f\n", disorder(media, 4));
     return (0);
 }

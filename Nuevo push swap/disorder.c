@@ -6,20 +6,20 @@
 /*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 00:42:22 by javiesan          #+#    #+#             */
-/*   Updated: 2026/07/24 14:00:42 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/24 15:48:10 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-double disorder(int *numbers, int count)
+double ft_disorder(int *numbers, int count)
 {
     int i;
     int j;
     double dis;
     double total;
 
-    if (n <= 1)
+    if (count <= 1)
         return (0);
     dis = 0;
     total = 0;
@@ -36,5 +36,5 @@ double disorder(int *numbers, int count)
         }
         i++;
     }
-    return (dis/total)
+    return (dis/total);
 }

@@ -6,7 +6,7 @@
 #    By: plopez-l <plopez-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/23 12:59:59 by plopez-l          #+#    #+#              #
-#    Updated: 2026/07/24 13:47:37 by plopez-l         ###   ########.fr        #
+#    Updated: 2026/07/24 15:47:47 by plopez-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRC =	parser.c \
 		move_rotate.c \
 		move_reverse_rotate.c \
 		main.c \
-		psindex.c
+		psindex.c \
+		disorder.c
 
 OBJ = $(SRC:.c=.o)
 

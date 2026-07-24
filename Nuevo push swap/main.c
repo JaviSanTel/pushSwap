@@ -6,7 +6,7 @@
 /*   By: plopez-l <plopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 14:55:51 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/24 13:49:28 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/24 15:43:47 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char **argv)
 	int		flag_coun[5];
 	int		*numbers;
 	int		count;
+	double	disorder;
 	t_stack	*a;
 	t_stack	*b;
 
@@ -56,6 +57,7 @@ int	main(int argc, char **argv)
 		free (numbers);
 		error_exit();
 	}
+	disorder = ft_disorder(numbers, count);
 	a = build_list(numbers, count);
 	free(numbers);
 	if (!a && count > 0)

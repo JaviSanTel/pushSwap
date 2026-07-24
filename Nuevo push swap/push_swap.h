@@ -6,7 +6,7 @@
 /*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 11:27:45 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/24 13:46:29 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/24 15:44:26 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ int		reverse_rotate_rrr(t_stack *a, t_stack *b);
 
 int		*psindex(int *numbers, int count);
 
+//disorder.c
 
+double	ft_disorder(int	*numbers, int count);
 
 //meter prototipo de las funciones.
 

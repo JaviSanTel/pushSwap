@@ -36,6 +36,7 @@ int *psindex(int *cadena, int n)
         result[i] = position + 1;
         i++;
     }
+    free (cadena);
     return (result);
 }
 
