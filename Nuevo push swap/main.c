@@ -12,6 +12,41 @@
 
 #include "push_swap.h"
 
+int	*get_numbers(int argc, char **argv, int *flag_coun, int *count)
+{
+	int *numbers;
+
+	numbers = malloc(sizeof(int) * compute_max_size(argc, argv));
+	if (!numbers)
+		return (NULL);
+	*count = parse_all_args(argc, argv, flag_coun, numbers);
+	return (numbers);
+
+}
+
+void	validate_numbers(int *flag_coun, int *numbers, int count)
+{
+	if (has_conflict(flag_coun) || has_duplicates(numbers, count))
+	{
+		free(numbers);
+		error_exit ();
+	}
+}
+
+t_stack	*prepare_stack(int *numbers, int count)
+{
+	t_stack *a;
+	
+	numbers = psindex(numbers, count);
+	if (!numbers && count > 0)
+		error_exit();
+	a = build_list(numbers, count);
+	free(numbers);
+	if (!a && count > 0)
+		error_exit();
+	return (a);
+}
+
 int	parse_all_args(int argc, char **argv, int *flag_coun, int *numbers)
 {
 	int		i;
@@ -35,35 +70,19 @@ int	main(int argc, char **argv)
 	int		flag_coun[5];
 	int		*numbers;
 	int		count;
-	double	disorder;
 	t_stack	*a;
 	t_stack	*b;
 
 	if (argc < 2)
 		return (0);
 	ft_init_flags(flag_coun);
-	numbers = malloc(sizeof(int) * compute_max_size(argc, argv));
+	numbers = get_numbers(argc, argv, flag_coun, &count);
 	if (!numbers)
 		return (1);
-	count = parse_all_args(argc, argv, flag_coun, numbers);
-	if (has_conflict(flag_coun) || has_duplicates(numbers, count))
-	{
-		free(numbers);
-		error_exit();
-	}
-	numbers = psindex(numbers, count);
-	if (!numbers)
-	{
-		free (numbers);
-		error_exit();
-	}
-	disorder = ft_disorder(numbers, count);
-	a = build_list(numbers, count);
-	free(numbers);
-	if (!a && count > 0)
-		error_exit();
-	b = NULL;
+	validate_numbers(flag_coun, numbers, count);
+	strategy = choose_strategy(flag_coun, numbers, count);
+	a = prepare_stack(numbers, count);
 	if (count > 1)
-		sort_simple(&a, &b, count);
+		execute_sort(&a, count, strategy);
 	return (0);
 }

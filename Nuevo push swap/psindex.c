@@ -23,7 +23,10 @@ int *psindex(int *numbers, int count)
 
     result = malloc(count * sizeof(int));
 	if (!result)
-		return (0);
+	{	
+		free(numbers);
+		return (NULL);
+	}
     while (i < count)
     {
         position = 0;
@@ -37,6 +40,6 @@ int *psindex(int *numbers, int count)
         result[i] = position + 1;
         i++;
     }
-    free (numbers);
+    free(numbers);
     return (result);
 }
