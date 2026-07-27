@@ -1,39 +1,27 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: plopez-l <plopez-l@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/06/23 12:59:59 by plopez-l          #+#    #+#              #
-#    Updated: 2026/07/24 15:47:47 by plopez-l         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-NAME = push_swap
-
-LIBFT_DIR = ./LIBFT
-
-LIBFT = $(LIBFT_DIR)/libft.a
-
-CC = cc
-
-CFLAGS = -Wall -Werror -Wextra
-
-RM = rm -f
+NAME		= push_swap
+LIBFT_DIR	= ./LIBFT
+LIBFT		= $(LIBFT_DIR)/libft.a
+CC			= cc
+CFLAGS		= -Wall -Werror -Wextra
+RM			= rm -f
 
 SRC =	parser.c \
 		utils.c \
 		flags.c \
 		list_utils.c \
 		sort_simple.c \
+		sort_chunk.c \
+		sort_radix.c \
+		sort_near_sorted.c \
+		dispatch.c \
+		bench.c \
+		disorder.c \
+		psindex.c \
 		move_swap.c \
 		move_push.c \
 		move_rotate.c \
 		move_reverse_rotate.c \
-		main.c \
-		psindex.c \
-		disorder.c
+		main.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -56,4 +44,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re

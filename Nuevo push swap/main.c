@@ -1,27 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: plopez-l <plopez-l@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/22 14:55:51 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/24 15:43:47 by plopez-l         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
 int	*get_numbers(int argc, char **argv, int *flag_coun, int *count)
 {
-	int *numbers;
+	int	*numbers;
 
 	numbers = malloc(sizeof(int) * compute_max_size(argc, argv));
 	if (!numbers)
 		return (NULL);
 	*count = parse_all_args(argc, argv, flag_coun, numbers);
 	return (numbers);
-
 }
 
 void	validate_numbers(int *flag_coun, int *numbers, int count)
@@ -29,14 +16,14 @@ void	validate_numbers(int *flag_coun, int *numbers, int count)
 	if (has_conflict(flag_coun) || has_duplicates(numbers, count))
 	{
 		free(numbers);
-		error_exit ();
+		error_exit();
 	}
 }
 
 t_stack	*prepare_stack(int *numbers, int count)
 {
-	t_stack *a;
-	
+	t_stack	*a;
+
 	numbers = psindex(numbers, count);
 	if (!numbers && count > 0)
 		error_exit();
@@ -71,7 +58,7 @@ int	main(int argc, char **argv)
 	int		*numbers;
 	int		count;
 	t_stack	*a;
-	t_stack	*b;
+	double	dis;
 
 	if (argc < 2)
 		return (0);
@@ -80,9 +67,14 @@ int	main(int argc, char **argv)
 	if (!numbers)
 		return (1);
 	validate_numbers(flag_coun, numbers, count);
-	strategy = choose_strategy(flag_coun, numbers, count);
 	a = prepare_stack(numbers, count);
-	if (count > 1)
-		execute_sort(&a, count, strategy);
+	dis = list_disorder(a);
+	if (count <= 1)
+		return (0);
+	if (flag_coun[4] > 0)
+		print_bench(flag_coun, dis, execute_sort(&a, count,
+				choose_strategy(flag_coun, dis)));
+	else
+		execute_sort(&a, count, choose_strategy(flag_coun, dis));
 	return (0);
 }

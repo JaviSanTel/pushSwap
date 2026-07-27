@@ -2,20 +2,17 @@
 
 #include "push_swap.h"
 
-int	choose_strategy(int *flags, int *numbers, int n)
+int	choose_strategy(int *flags, double dis)
 {
-	double	dis;
-
 	if (flags[0] > 0)
 		return (0);
 	if (flags[1] > 0)
 		return (1);
 	if (flags[2] > 0)
 		return (2);
-	dis = ft_disorder(numbers, n);
 	if (dis < 0.2)
 		return (3);
-	if (dis < 0.5)
+	else if (dis < 0.5)
 		return (1);
 	return (2);
 }
@@ -60,3 +57,29 @@ const char	*strategy_complexity(int strategy)
 	return ("O(n)");
 }
 
+double	list_disorder(t_stack *a)
+{
+	t_stack	*ni;
+	t_stack	*nj;
+	double	dis;
+	double	total;
+
+	if (a == NULL || a->next == NULL)
+		return (0);
+	dis = 0;
+	total = 0;
+	ni = a;
+	while (ni)
+	{
+		nj = ni->next;
+		while (nj)
+		{
+			if (ni->content > nj->content)
+				dis++;
+			total++;
+			nj = nj->next;
+		}
+		ni = ni->next;
+	}
+	return (dis / total);
+}
