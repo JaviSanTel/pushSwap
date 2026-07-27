@@ -75,6 +75,6 @@ int	main(int argc, char **argv)
 		print_bench(flag_coun, dis, execute_sort(&a, count,
 				choose_strategy(flag_coun, dis)));
 	else
-		execute_sort(&a, count, choose_strategy(flag_coun, dis));
+		free(execute_sort(&a, count, choose_strategy(flag_coun, dis)));
 	return (0);
 }

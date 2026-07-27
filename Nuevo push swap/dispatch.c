@@ -1,5 +1,3 @@
-
-
 #include "push_swap.h"
 
 int	choose_strategy(int *flags, double dis)
@@ -12,27 +10,33 @@ int	choose_strategy(int *flags, double dis)
 		return (2);
 	if (dis < 0.2)
 		return (3);
-	else if (dis < 0.5)
+	if (dis < 0.5)
 		return (1);
 	return (2);
 }
 
-int	execute_sort(t_stack **a, int n, int strategy)
+int	*execute_sort(t_stack **a, int n, int strategy)
 {
 	t_stack	*b;
-	int		total_ops;
+	int		*op_counts;
+	int		i;
 
 	b = NULL;
-	total_ops = 0;
+	op_counts = malloc(sizeof(int) * 11);
+	if (!op_counts)
+		return (NULL);
+	i = 0;
+	while (i < 11)
+		op_counts[i++] = 0;
 	if (strategy == 0)
-		sort_simple(a, &b, n, &total_ops);
+		sort_simple(a, &b, n, op_counts);
 	else if (strategy == 1)
-		sort_chunk(a, &b, n, &total_ops);
+		sort_chunk(a, &b, n, op_counts);
 	else if (strategy == 2)
-		sort_radix(a, &b, n, &total_ops);
+		sort_radix(a, &b, n, op_counts);
 	else
-		sort_near_sorted(a, &b, n, &total_ops);
-	return (total_ops);
+		sort_near_sorted(a, &b, n, op_counts);
+	return (op_counts);
 }
 
 const char	*strategy_name(int strategy)

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sort_simple.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/22 14:49:46 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/22 14:54:58 by plopez-l         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
 int	find_min_position(t_stack *a)
@@ -36,7 +24,7 @@ int	find_min_position(t_stack *a)
 	return (min_pos);
 }
 
-void	rotate_to_top(t_stack *a, int pos, int size, int *total_ops)
+void	rotate_to_top(t_stack *a, int pos, int size, int *op_counts)
 {
 	int	i;
 
@@ -46,7 +34,7 @@ void	rotate_to_top(t_stack *a, int pos, int size, int *total_ops)
 		while (i++ < pos)
 		{
 			rotate_a(a);
-			(*total_ops)++;
+			op_counts[OP_RA]++;
 		}
 	}
 	else
@@ -54,12 +42,12 @@ void	rotate_to_top(t_stack *a, int pos, int size, int *total_ops)
 		while (i++ < size - pos)
 		{
 			reverse_rotate_a(a);
-			(*total_ops)++;
+			op_counts[OP_RRA]++;
 		}
 	}
 }
 
-void	sort_simple(t_stack **a, t_stack **b, int n, int *total_ops)
+void	sort_simple(t_stack **a, t_stack **b, int n, int *op_counts)
 {
 	int	i;
 	int	pos;
@@ -68,16 +56,16 @@ void	sort_simple(t_stack **a, t_stack **b, int n, int *total_ops)
 	while (i < n)
 	{
 		pos = find_min_position(*a);
-		rotate_to_top(*a, pos, n - i, total_ops);
+		rotate_to_top(*a, pos, n - i, op_counts);
 		pb(a, b);
-		(*total_ops)++;
+		op_counts[OP_PB]++;
 		i++;
 	}
 	i = 0;
 	while (i < n)
 	{
 		pa(a, b);
-		(*total_ops)++;
+		op_counts[OP_PA]++;
 		i++;
 	}
 }

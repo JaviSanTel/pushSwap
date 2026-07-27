@@ -12,6 +12,21 @@ typedef struct s_stack
 	struct s_stack	*prev;
 }	t_stack;
 
+enum e_op
+{
+	OP_SA,
+	OP_SB,
+	OP_SS,
+	OP_PA,
+	OP_PB,
+	OP_RA,
+	OP_RB,
+	OP_RR,
+	OP_RRA,
+	OP_RRB,
+	OP_RRR
+};
+
 /* parser.c */
 int		is_valid_number(const char *str);
 int		str_equals(const char *a, const char *b);
@@ -37,8 +52,8 @@ t_stack	*build_list(int *numbers, int count);
 
 /* sort_simple.c */
 int		find_min_position(t_stack *a);
-void	rotate_to_top(t_stack *a, int pos, int size, int *total_ops);
-void	sort_simple(t_stack **a, t_stack **b, int n, int *total_ops);
+void	rotate_to_top(t_stack *a, int pos, int size, int *op_counts);
+void	sort_simple(t_stack **a, t_stack **b, int n, int *op_counts);
 
 /* move_swap.c */
 void	swap(t_stack *stack);
@@ -71,13 +86,16 @@ double	ft_disorder(int *numbers, int count);
 
 /* dispatch.c */
 int			choose_strategy(int *flags, double dis);
-int			execute_sort(t_stack **a, int n, int strategy);
+int			*execute_sort(t_stack **a, int n, int strategy);
 const char	*strategy_name(int strategy);
 const char	*strategy_complexity(int strategy);
 double		list_disorder(t_stack *a);
 
 /* bench.c */
-void	print_bench(int *flags, double dis, int total);
+int			total_from_counts(int *op_counts);
+const char	*op_name(int index);
+void		print_breakdown(int *op_counts);
+void		print_bench(int *flags, double dis, int *op_counts);
 
 /* main.c */
 int		*get_numbers(int argc, char **argv, int *flag_coun, int *count);
@@ -85,9 +103,9 @@ void	validate_numbers(int *flag_coun, int *numbers, int count);
 t_stack	*prepare_stack(int *numbers, int count);
 int		parse_all_args(int argc, char **argv, int *flag_coun, int *numbers);
 
-/* sort_chunk.c, sort_radix.c, sort_near_sorted.c (stubs, aún de tu compañero) */
-void	sort_chunk(t_stack **a, t_stack **b, int n, int *total_ops);
-void	sort_radix(t_stack **a, t_stack **b, int n, int *total_ops);
-void	sort_near_sorted(t_stack **a, t_stack **b, int n, int *total_ops);
+/* sort_chunk.c, sort_radix.c, sort_near_sorted.c (stubs, de tu compañero) */
+void	sort_chunk(t_stack **a, t_stack **b, int n, int *op_counts);
+void	sort_radix(t_stack **a, t_stack **b, int n, int *op_counts);
+void	sort_near_sorted(t_stack **a, t_stack **b, int n, int *op_counts);
 
 #endif
