@@ -1,3 +1,5 @@
+
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include <unistd.h>
@@ -45,6 +47,7 @@ int		compute_max_size(int argc, char **argv);
 int		get_flag_type(const char *str);
 int		has_conflict(int *counts);
 void	ft_init_flags(int *flag_coun);
+int		strategy_forced(int *flags);
 
 /* list_utils.c */
 t_stack	*new_node(int value);
@@ -54,6 +57,11 @@ t_stack	*build_list(int *numbers, int count);
 int		find_min_position(t_stack *a);
 void	rotate_to_top(t_stack *a, int pos, int size, int *op_counts);
 void	sort_simple(t_stack **a, t_stack **b, int n, int *op_counts);
+
+/* sort_small.c */
+void	sort_three(t_stack **a, t_stack **b, int *op_counts);
+void	sort_four(t_stack **a, t_stack **b, int *op_counts);
+void	sort_five(t_stack **a, t_stack **b, int *op_counts);
 
 /* move_swap.c */
 void	swap(t_stack *stack);
@@ -86,16 +94,23 @@ double	ft_disorder(int *numbers, int count);
 
 /* dispatch.c */
 int			choose_strategy(int *flags, double dis);
-int			*execute_sort(t_stack **a, int n, int strategy);
 const char	*strategy_name(int strategy);
 const char	*strategy_complexity(int strategy);
 double		list_disorder(t_stack *a);
+const char	*op_name(int index);
+
+/* run_sort.c */
+int		*init_counts(void);
+void	run_small_sort(t_stack **a, int n, int *op_counts);
+void	run_strategy_sort(t_stack **a, int n, int strategy, int *op_counts);
+int		*execute_sort(t_stack **a, int n, int strategy, int *flags);
 
 /* bench.c */
-int			total_from_counts(int *op_counts);
-const char	*op_name(int index);
-void		print_breakdown(int *op_counts);
-void		print_bench(int *flags, double dis, int *op_counts);
+int		total_from_counts(int *op_counts);
+void	print_breakdown(int *op_counts);
+void	print_summary(const char *name, const char *complexity, char *total);
+void	print_percentage(double dis);
+void	print_bench(int *flags, double dis, int *op_counts);
 
 /* main.c */
 int		*get_numbers(int argc, char **argv, int *flag_coun, int *count);
@@ -103,9 +118,8 @@ void	validate_numbers(int *flag_coun, int *numbers, int count);
 t_stack	*prepare_stack(int *numbers, int count);
 int		parse_all_args(int argc, char **argv, int *flag_coun, int *numbers);
 
-/* sort_chunk.c, sort_radix.c, sort_near_sorted.c */
+/* sort_chunk.c, sort_radix.c (stubs, de tu compañero) */
 void	sort_chunk(t_stack **a, t_stack **b, int n, int *op_counts);
 void	sort_radix(t_stack **a, t_stack **b, int n, int *op_counts);
-void	sort_near_sorted(t_stack **a, t_stack **b, int n, int *op_counts);
 
 #endif

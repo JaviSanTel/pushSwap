@@ -24,29 +24,43 @@ int	total_from_counts(int *op_counts)
 	return (total);
 }
 
-const char	*op_name(int index)
+void	print_percentage(double dis)
 {
-	if (index == OP_SA)
-		return ("sa");
-	if (index == OP_SB)
-		return ("sb");
-	if (index == OP_SS)
-		return ("ss");
-	if (index == OP_PA)
-		return ("pa");
-	if (index == OP_PB)
-		return ("pb");
-	if (index == OP_RA)
-		return ("ra");
-	if (index == OP_RB)
-		return ("rb");
-	if (index == OP_RR)
-		return ("rr");
-	if (index == OP_RRA)
-		return ("rra");
-	if (index == OP_RRB)
-		return ("rrb");
-	return ("rrr");
+	int		scaled;
+	int		whole;
+	char	*whole_str;
+	char	*frac_str;
+
+	scaled = (int)(dis * 10000 + 0.5);
+	whole = scaled / 100;
+	whole_str = ft_itoa(whole);
+	frac_str = ft_itoa(scaled % 100);
+	if (!whole_str || !frac_str)
+	{
+		free(whole_str);
+		free(frac_str);
+		return ;
+	}
+	write(2, "[bench] Disorder: ", 18);
+	write(2, whole_str, ft_strlen(whole_str));
+	write(2, ".", 1);
+	if (scaled % 100 < 10)
+		write(2, "0", 1);
+	write(2, frac_str, ft_strlen(frac_str));
+	write(2, "%\n", 2);
+	free(whole_str);
+	free(frac_str);
+}
+
+void	print_summary(const char *name, const char *complexity, char *total)
+{
+	write(2, "[bench] Strategy: ", 18);
+	write(2, name, ft_strlen(name));
+	write(2, " - ", 3);
+	write(2, complexity, ft_strlen(complexity));
+	write(2, "\n[bench] Total operations: ", 27);
+	write(2, total, ft_strlen(total));
+	write(2, "\n", 1);
 }
 
 void	print_breakdown(int *op_counts)
@@ -72,14 +86,13 @@ void	print_breakdown(int *op_counts)
 
 void	print_bench(int *flags, double dis, int *op_counts)
 {
-	int			strategy;
-	int			total;
-	const char	*name;
-	const char	*complexity;
-	char		*total_str;
+	int		strategy;
+	int		total;
+	char	*total_str;
 
 	if (!op_counts)
 		error_exit();
+	print_percentage(dis);
 	strategy = choose_strategy(flags, dis);
 	total = total_from_counts(op_counts);
 	total_str = ft_itoa(total);
@@ -88,14 +101,8 @@ void	print_bench(int *flags, double dis, int *op_counts)
 		free(op_counts);
 		return ;
 	}
-	name = strategy_name(strategy);
-	complexity = strategy_complexity(strategy);
-	write(2, name, ft_strlen(name));
-	write(2, " - ", 3);
-	write(2, complexity, ft_strlen(complexity));
-	write(2, " - ", 3);
-	write(2, total_str, ft_strlen(total_str));
-	write(2, "\n", 1);
+	print_summary(strategy_name(strategy), strategy_complexity(strategy),
+			total_str);
 	free(total_str);
 	print_breakdown(op_counts);
 	free(op_counts);

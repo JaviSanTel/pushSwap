@@ -10,10 +10,11 @@ SRC =	parser.c \
 		flags.c \
 		list_utils.c \
 		sort_simple.c \
+		sort_small.c \
 		sort_chunk.c \
 		sort_radix.c \
-		sort_near_sorted.c \
 		dispatch.c \
+		run_sort.c \
 		bench.c \
 		disorder.c \
 		psindex.c \

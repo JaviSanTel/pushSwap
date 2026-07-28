@@ -21,34 +21,35 @@ int	choose_strategy(int *flags, double dis)
 	if (flags[2] > 0)
 		return (2);
 	if (dis < 0.2)
-		return (3);
+		return (0);
 	if (dis < 0.5)
 		return (1);
 	return (2);
 }
 
-int	*execute_sort(t_stack **a, int n, int strategy)
+const char      *op_name(int index)
 {
-	t_stack	*b;
-	int		*op_counts;
-	int		i;
-
-	b = NULL;
-	op_counts = malloc(sizeof(int) * 11);
-	if (!op_counts)
-		return (NULL);
-	i = 0;
-	while (i < 11)
-		op_counts[i++] = 0;
-	if (strategy == 0)
-		sort_simple(a, &b, n, op_counts);
-	else if (strategy == 1)
-		sort_chunk(a, &b, n, op_counts);
-	else if (strategy == 2)
-		sort_radix(a, &b, n, op_counts);
-	else
-		sort_near_sorted(a, &b, n, op_counts);
-	return (op_counts);
+        if (index == OP_SA)
+                return ("sa");
+        if (index == OP_SB)
+                return ("sb");
+        if (index == OP_SS)
+                return ("ss");
+        if (index == OP_PA)
+                return ("pa");
+        if (index == OP_PB)
+                return ("pb");
+        if (index == OP_RA)
+                return ("ra");
+        if (index == OP_RB)
+                return ("rb");
+        if (index == OP_RR)
+                return ("rr");
+        if (index == OP_RRA)
+                return ("rra");
+        if (index == OP_RRB)
+                return ("rrb");
+        return ("rrr");
 }
 
 const char	*strategy_name(int strategy)
@@ -57,9 +58,7 @@ const char	*strategy_name(int strategy)
 		return ("Simple");
 	if (strategy == 1)
 		return ("Chunk");
-	if (strategy == 2)
-		return ("Radix");
-	return ("Near sorted");
+	return ("Radix");
 }
 
 const char	*strategy_complexity(int strategy)

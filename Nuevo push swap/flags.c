@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags.c                                            :+:      :+:    :+:   */
+/*  f.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -50,4 +50,9 @@ void	ft_init_flags(int *flag_coun)
 	i = 0;
 	while (i < 5)
 		flag_coun[i++] = 0;
+}
+
+int	strategy_forced(int *flags)
+{
+	return (flags[0] > 0 || flags[1] > 0 || flags[2] > 0);
 }

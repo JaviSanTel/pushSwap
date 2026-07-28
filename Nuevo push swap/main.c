@@ -85,8 +85,8 @@ int	main(int argc, char **argv)
 		return (0);
 	if (flag_coun[4] > 0)
 		print_bench(flag_coun, dis, execute_sort(&a, count,
-				choose_strategy(flag_coun, dis)));
+				choose_strategy(flag_coun, dis), flag_coun));
 	else
-		free(execute_sort(&a, count, choose_strategy(flag_coun, dis)));
+		free(execute_sort(&a, count, choose_strategy(flag_coun, dis), flag_coun));
 	return (0);
 }
