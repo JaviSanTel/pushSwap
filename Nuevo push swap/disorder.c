@@ -6,13 +6,13 @@
 /*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 00:42:22 by javiesan          #+#    #+#             */
-/*   Updated: 2026/07/24 15:48:10 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/28 13:27:49 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-double ft_disorder(int *numbers, int count)
+double	ft_disorder(int *numbers, int count)
 {
     int i;
     int j;

@@ -103,7 +103,7 @@ void	validate_numbers(int *flag_coun, int *numbers, int count);
 t_stack	*prepare_stack(int *numbers, int count);
 int		parse_all_args(int argc, char **argv, int *flag_coun, int *numbers);
 
-/* sort_chunk.c, sort_radix.c, sort_near_sorted.c (stubs, de tu compañero) */
+/* sort_chunk.c, sort_radix.c, sort_near_sorted.c */
 void	sort_chunk(t_stack **a, t_stack **b, int n, int *op_counts);
 void	sort_radix(t_stack **a, t_stack **b, int n, int *op_counts);
 void	sort_near_sorted(t_stack **a, t_stack **b, int n, int *op_counts);

@@ -6,7 +6,7 @@
 /*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 16:34:33 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/22 16:35:58 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/28 13:24:05 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	reverse_rotate(t_stack *stack)
 {
 	t_stack	*aux;
-    int		temp;
+	int		temp;
 
 	if (stack == NULL || stack->next == NULL)
-		return;
+		return ;
 	aux = stack;
 	while (aux->next != NULL)
 		aux = aux->next;
@@ -27,7 +27,7 @@ void	reverse_rotate(t_stack *stack)
 	{
 		aux->content = aux->prev->content;
 		aux = aux->prev;
-    }
+	}
 	stack->content = temp;
 }
 
