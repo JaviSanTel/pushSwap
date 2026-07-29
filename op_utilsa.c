@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix.c                                            :+:      :+:    :+:   */
+/*   op_utilsa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/26 19:59:13 by javiesan          #+#    #+#             */
-/*   Updated: 2026/07/29 10:05:00 by javiesan         ###   ########.fr       */
+/*   Created: 2026/07/29 15:17:03 by javiesan          #+#    #+#             */
+/*   Updated: 2026/07/29 18:12:19 by javiesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_radix(t_stack **a, t_stack **b, int n)
+void	op_swap_a(t_stack *a, int *op_count)
 {
-	int	nbits;
-	int	bit;
-	int	i;
+	swap_a(a);
+	op_count[OP_SA]++;
+}
+void	op_swap_b(t_stack *b, int *op_count)
+{
+	swap_b(b);
+	op_count[OP_SB]++;
+}
 
-	nbits = 0;
-	while ((1 << nbits) <= n)
-		nbits++;
-	bit = 0;
-	while (bit < nbits)
-	{
-		i = 0;
-		while (i < n)
-		{
-			if (((*a)->content >> bit) & 1)
-				rotate_a(*a);
-			else
-				pb(a, b);
-			i++;
-		}
-		while (*b)
-			pa(a, b);
-		bit++;
-	}
+
+void	op_push_a(t_stack **a, t_stack **b, int *op_count)
+{
+	pa(a, b);
+	op_count[OP_PA]++;
+}
+
+void	op_push_b(t_stack **a, t_stack **b, int *op_count)
+{
+	pb(a, b);
+	op_count[OP_PB]++;
 }

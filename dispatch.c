@@ -6,7 +6,7 @@
 /*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 13:28:27 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/29 12:44:22 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/28 13:28:36 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ const char	*op_name(int index)
 		return ("sa");
 	if (index == OP_SB)
 		return ("sb");
-	if (index == OP_SS)
-		return ("ss");
-    if (index == OP_PA)
-		return ("pa");
-	if (index == OP_PB)
-		return ("pb");
-	if (index == OP_RA)
-		return ("ra");
-	if (index == OP_RB)
-		return ("rb");
-	if (index == OP_RR)
-		return ("rr");
-	if (index == OP_RRA)
-		return ("rra");
-	if (index == OP_RRB)
-		return ("rrb");
-	return ("rrr");
+        if (index == OP_SS)
+                return ("ss");
+        if (index == OP_PA)
+                return ("pa");
+        if (index == OP_PB)
+                return ("pb");
+        if (index == OP_RA)
+                return ("ra");
+        if (index == OP_RB)
+                return ("rb");
+        if (index == OP_RR)
+                return ("rr");
+        if (index == OP_RRA)
+                return ("rra");
+        if (index == OP_RRB)
+                return ("rrb");
+        return ("rrr");
 }
 
 const char	*strategy_name(int strategy)

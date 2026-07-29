@@ -20,12 +20,13 @@ void	run_small_sort(t_stack **a, int n, int *op_counts)
 	t_stack	*b;
 
 	b = NULL;
-	if (n == 3)
-		sort_three(a, &b, op_counts);
-	else if (n == 4)
-		sort_four(a, &b, op_counts);
-	else
-		sort_five(a, &b, op_counts);
+	// if (n == 3)
+	// 	sort_three(a, &b, op_counts);
+	// else if (n == 4)
+	// 	sort_four(a, &b, op_counts);
+	// else
+	// 	sort_five(a, &b, op_counts);
+	special_sort(a, &b, n, op_counts);
 }
 
 void	run_strategy_sort(t_stack **a, int n, int strategy, int *op_counts)
@@ -52,5 +53,6 @@ int	*execute_sort(t_stack **a, int n, int strategy, int *flags)
 		run_small_sort(a, n, op_counts);
 	else
 		run_strategy_sort(a, n, strategy, op_counts);
+	free_stack(*a);
 	return (op_counts);
 }

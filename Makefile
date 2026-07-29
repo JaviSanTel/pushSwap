@@ -11,8 +11,10 @@ SRC =	parser.c \
 		list_utils.c \
 		sort_simple.c \
 		sort_small.c \
-		sort_chunk.c \
-		sort_radix.c \
+		chunk.c \
+		chunk_utils.c \
+		radix.c \
+		special_sort.c \
 		dispatch.c \
 		run_sort.c \
 		bench.c \
@@ -22,6 +24,8 @@ SRC =	parser.c \
 		move_push.c \
 		move_rotate.c \
 		move_reverse_rotate.c \
+		op_utilsa.c \
+		op_utilsb.c \
 		main.c
 
 OBJ = $(SRC:.c=.o)

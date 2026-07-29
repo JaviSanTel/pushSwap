@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 13:32:05 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/28 13:32:12 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/29 20:21:57 by javiesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_stack	*prepare_stack(int *numbers, int count)
 	free(numbers);
 	if (!a && count > 0)
 		error_exit();
+	if (count == 1)
+		free_stack(a);
 	return (a);
 }
 
@@ -90,6 +92,5 @@ int	main(int argc, char **argv)
 			free(execute_sort(&a, count, 
 				choose_strategy(flag_coun, dis), flag_coun));
 	}
-	free_stack(a);
 	return (0);
 }
