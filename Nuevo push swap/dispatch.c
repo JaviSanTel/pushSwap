@@ -27,12 +27,12 @@ int	choose_strategy(int *flags, double dis)
 	return (2);
 }
 
-const char      *op_name(int index)
+const char	*op_name(int index)
 {
-        if (index == OP_SA)
-                return ("sa");
-        if (index == OP_SB)
-                return ("sb");
+	if (index == OP_SA)
+		return ("sa");
+	if (index == OP_SB)
+		return ("sb");
         if (index == OP_SS)
                 return ("ss");
         if (index == OP_PA)
@@ -67,9 +67,7 @@ const char	*strategy_complexity(int strategy)
 		return ("O(n^2)");
 	if (strategy == 1)
 		return ("O(n*sqrt(n))");
-	if (strategy == 2)
-		return ("O(n*log(n))");
-	return ("O(n)");
+	return ("O(n*log(n))");
 }
 
 double	list_disorder(t_stack *a)
