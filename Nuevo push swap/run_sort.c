@@ -48,7 +48,7 @@ int	*execute_sort(t_stack **a, int n, int strategy, int *flags)
 	op_counts = init_counts();
 	if (!op_counts)
 		return (NULL);
-	if (!strategy_forced(flags) && n >= 3 && n <= 5)
+	if (!strategy_forced(flags) && n >= 2 && n <= 5)
 		run_small_sort(a, n, op_counts);
 	else
 		run_strategy_sort(a, n, strategy, op_counts);
