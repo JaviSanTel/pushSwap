@@ -81,12 +81,15 @@ int	main(int argc, char **argv)
 	validate_numbers(flag_coun, numbers, count);
 	a = prepare_stack(numbers, count);
 	dis = list_disorder(a);
-	if (count <= 1)
-		return (0);
-	if (flag_coun[4] > 0)
-		print_bench(flag_coun, dis, execute_sort(&a, count,
+	if (count > 1)
+	{
+		if (flag_coun[4] > 0)
+			print_bench(flag_coun, dis, execute_sort(&a, count,
 				choose_strategy(flag_coun, dis), flag_coun));
-	else
-		free(execute_sort(&a, count, choose_strategy(flag_coun, dis), flag_coun));
+		else
+			free(execute_sort(&a, count, 
+				choose_strategy(flag_coun, dis), flag_coun));
+	}
+	free_stack(a);
 	return (0);
 }

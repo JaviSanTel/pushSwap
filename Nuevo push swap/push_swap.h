@@ -52,6 +52,7 @@ int		strategy_forced(int *flags);
 /* list_utils.c */
 t_stack	*new_node(int value);
 t_stack	*build_list(int *numbers, int count);
+void	free_stack(t_stack *a);
 
 /* sort_simple.c */
 int		find_min_position(t_stack *a);

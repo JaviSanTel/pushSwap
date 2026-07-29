@@ -39,7 +39,10 @@ t_stack	*build_list(int *numbers, int count)
 	{
 		node = new_node(numbers[i]);
 		if (!node)
+		{
+			free_stack(head);	
 			return (NULL);
+		}
 		else if (head == NULL)
 			head = node;
 		else
@@ -51,4 +54,16 @@ t_stack	*build_list(int *numbers, int count)
 		i++;
 	}
 	return (head);
+}
+
+void	free_stack(t_stack *a)
+{
+	t_stack	*next;
+
+	while (a)
+	{
+		next = a->next;
+		free(a);
+		a = next;
+	}
 }
