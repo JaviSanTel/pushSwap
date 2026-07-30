@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: plopez-l <plopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 14:15:33 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/22 14:21:50 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/30 17:45:18 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	free_split(char **arr)
 	free(arr);
 }
 
-void	free_all(char **nbr_strs, int *numbers)
+void	free_all(char **nbr_strs, int *num)
 {
 	if (nbr_strs)
 		free_split(nbr_strs);
-	if (numbers)
-		free(numbers);
+	if (num)
+		free(num);
 }
 
-int	has_duplicates(int *numbers, int count)
+int	has_duplicates(int *num, int count)
 {
 	int	i;
 	int	j;
@@ -47,7 +47,7 @@ int	has_duplicates(int *numbers, int count)
 		j = i + 1;
 		while (j < count)
 		{
-			if (numbers[i] == numbers[j])
+			if (num[i] == num[j])
 				return (1);
 			j++;
 		}

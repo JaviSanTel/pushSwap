@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: plopez-l <plopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 14:22:16 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/22 14:36:53 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/30 17:45:18 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,26 @@ long	str_to_long(const char *str)
 	return (num * sign);
 }
 
-void	store_number(char *str, int *numbers, int *count, char **nbr_strs)
+void	store_number(char *str, int *num, int *count, char **nbr_strs)
 {
 	long	value;
 
 	if (!is_valid_number(str))
 	{
-		free_all(nbr_strs, numbers);
+		free_all(nbr_strs, num);
 		error_exit();
 	}
 	value = str_to_long(str);
 	if (value > INT_MAX || value < INT_MIN)
 	{
-		free_all(nbr_strs, numbers);
+		free_all(nbr_strs, num);
 		error_exit();
 	}
-	numbers[*count] = (int)value;
+	num[*count] = (int)value;
 	(*count)++;
 }
 
-void	parse_tokens(char **nbr_strs, int *flag_coun, int *numbers, int *count)
+void	parse_tokens(char **nbr_strs, int *flag_coun, int *num, int *count)
 {
 	int	j;
 	int	type;
@@ -91,7 +91,7 @@ void	parse_tokens(char **nbr_strs, int *flag_coun, int *numbers, int *count)
 		if (type != 0)
 			flag_coun[type - 1]++;
 		else
-			store_number(nbr_strs[j], numbers, count, nbr_strs);
+			store_number(nbr_strs[j], num, count, nbr_strs);
 		j++;
 	}
 }

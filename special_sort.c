@@ -6,17 +6,18 @@
 /*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 19:22:54 by javiesan          #+#    #+#             */
-/*   Updated: 2026/07/29 20:12:07 by javiesan         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:59:37 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
+
 void	order_special(t_stack **a, int delay, int *op_counts)
 {
 	int	top;
 	int	mid;
-	
+
 	top = (*a)->content - delay;
 	mid = ((*a)->next)->content - delay;
 	if (top == 1 && mid == 3)
@@ -34,14 +35,14 @@ void	order_special(t_stack **a, int delay, int *op_counts)
 	{
 		op_swap_a(*a, op_counts);
 		op_rev_rotate_a(*a, op_counts);
-	}	
+	}
 }
 
 void	special_sort(t_stack **a, t_stack **b, int count, int *op_counts)
 {
-	int pos;
+	int	pos;
 	int	delay;
-	
+
 	if (count == 2)
 		swap_a(*a);
 	delay = count - 3;

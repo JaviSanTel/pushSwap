@@ -6,7 +6,7 @@
 /*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 22:01:19 by javiesan          #+#    #+#             */
-/*   Updated: 2026/07/28 13:24:58 by javiesan         ###   ########.fr       */
+/*   Updated: 2026/07/30 17:54:34 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,4 @@ int	ft_size_st(t_stack *x)
 		x = x->next;
 	}
 	return (n);
-}
-
-void rotarA(t_stack *a, int *op_counts)
-{
-	rotate_a(a);
-	op_counts[OP_RA]++;
 }

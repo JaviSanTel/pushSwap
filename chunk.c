@@ -6,7 +6,7 @@
 /*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 08:27:25 by javiesan          #+#    #+#             */
-/*   Updated: 2026/07/30 08:17:16 by javiesan         ###   ########.fr       */
+/*   Updated: 2026/07/30 17:31:03 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ void	found(t_stack **a, t_stack **b, t_chunkdata *data, int *op_count)
 
 void	push_chunk(t_stack **a, t_stack **b, int n, int *op_count)
 {
-	int	size;
-	int	floor;
-	int	step;
-	t_chunkdata cdata;
+	int			size;
+	int			floor;
+	int			step;
+	t_chunkdata	cdata;
 
 	floor = isqrt(n);
 	size = 3 * floor;
 	step = (size - floor) / 7;
 	cdata.clow = 1;
-		while (cdata.clow <= n)
+	while (cdata.clow <= n)
 	{
 		if (size > floor)
 		{

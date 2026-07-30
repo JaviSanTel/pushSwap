@@ -6,7 +6,7 @@
 /*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 19:59:13 by javiesan          #+#    #+#             */
-/*   Updated: 2026/07/29 18:10:45 by javiesan         ###   ########.fr       */
+/*   Updated: 2026/07/30 13:36:34 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,3 @@ void	sort_radix(t_stack **a, t_stack **b, int n, int *op_count)
 		bit++;
 	}
 }
-
-

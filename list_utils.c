@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: plopez-l <plopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 14:45:01 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/22 14:49:23 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/30 17:45:18 by plopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_stack	*new_node(int value)
 	return (node);
 }
 
-t_stack	*build_list(int *numbers, int count)
+t_stack	*build_list(int *num, int count)
 {
 	t_stack	*head;
 	t_stack	*last;
@@ -37,10 +37,10 @@ t_stack	*build_list(int *numbers, int count)
 	i = 0;
 	while (i < count)
 	{
-		node = new_node(numbers[i]);
+		node = new_node(num[i]);
 		if (!node)
 		{
-			free_stack(head);	
+			free_stack(head);
 			return (NULL);
 		}
 		else if (head == NULL)

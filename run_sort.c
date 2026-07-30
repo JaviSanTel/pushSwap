@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_sort.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/30 13:20:40 by plopez-l          #+#    #+#             */
+/*   Updated: 2026/07/30 13:25:03 by plopez-l         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -20,12 +31,6 @@ void	run_small_sort(t_stack **a, int n, int *op_counts)
 	t_stack	*b;
 
 	b = NULL;
-	// if (n == 3)
-	// 	sort_three(a, &b, op_counts);
-	// else if (n == 4)
-	// 	sort_four(a, &b, op_counts);
-	// else
-	// 	sort_five(a, &b, op_counts);
 	special_sort(a, &b, n, op_counts);
 }
 

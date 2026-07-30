@@ -18,7 +18,6 @@ SRC =	parser.c \
 		dispatch.c \
 		run_sort.c \
 		bench.c \
-		disorder.c \
 		psindex.c \
 		move_swap.c \
 		move_push.c \
