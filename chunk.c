@@ -6,7 +6,7 @@
 /*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 08:27:25 by javiesan          #+#    #+#             */
-/*   Updated: 2026/07/29 18:10:18 by javiesan         ###   ########.fr       */
+/*   Updated: 2026/07/30 08:17:16 by javiesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	return_global(t_stack **a, t_stack **b, int *op_count)
 		{
 			total = pos;
 			while (total--)
-				op_rotate_a(*b, op_count);
+				op_rotate_b(*b, op_count);
 		}
 		else if (pos >= tam - pos)
 		{
