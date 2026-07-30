@@ -64,10 +64,10 @@ const char	*strategy_name(int strategy)
 const char	*strategy_complexity(int strategy)
 {
 	if (strategy == 0)
-		return ("O(n^2)");
+		return ("O(n²)");
 	if (strategy == 1)
-		return ("O(n*sqrt(n))");
-	return ("O(n*log(n))");
+		return ("O(n√n)");
+	return ("O(n log n)");
 }
 
 double	list_disorder(t_stack *a)

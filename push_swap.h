@@ -124,9 +124,9 @@ int		*execute_sort(t_stack **a, int n, int strategy, int *flags);
 
 /* bench.c */
 int		total_from_counts(int *op_counts);
-void	print_breakdown(int *op_counts);
-void	print_summary(const char *name, const char *complexity, char *total);
 void	print_percentage(double dis);
+void	print_strategy_line(int *flags, int strategy, int total);
+void	print_breakdown(int *op_counts);
 void	print_bench(int *flags, double dis, int *op_counts);
 
 /* main.c */
