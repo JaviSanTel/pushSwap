@@ -10,7 +10,6 @@ SRC =	parser.c \
 		flags.c \
 		list_utils.c \
 		sort_simple.c \
-		sort_small.c \
 		chunk.c \
 		chunk_utils.c \
 		radix.c \

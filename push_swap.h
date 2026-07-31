@@ -69,16 +69,12 @@ int			strategy_forced(int *flags);
 t_stack		*new_node(int value);
 t_stack		*build_list(int *num, int count);
 void		free_stack(t_stack *a);
+void		link_node(t_stack **head, t_stack **last, t_stack *node);
 
 /* sort_simple.c */
 int			find_min_position(t_stack *a);
 void		rotate_to_top(t_stack *a, int pos, int size, int *op_counts);
 void		sort_simple(t_stack **a, t_stack **b, int n, int *op_counts);
-
-/* sort_small.c */
-void		sort_three(t_stack **a, t_stack **b, int *op_counts);
-void		sort_four(t_stack **a, t_stack **b, int *op_counts);
-void		sort_five(t_stack **a, t_stack **b, int *op_counts);
 
 /* move_swap.c */
 void		swap(t_stack *stack);
@@ -115,6 +111,7 @@ void		op_rev_rotate_b(t_stack *b, int *op_count);
 
 /* psindex.c */
 int			*psindex(int *num, int count);
+int			count_smaller(int *num, int count, int idx);
 
 /* dispatch.c */
 int			choose_strategy(int *flags, double dis);
@@ -128,6 +125,7 @@ int			*init_counts(void);
 void		run_small_sort(t_stack **a, int n, int *op_counts);
 void		run_strategy_sort(t_stack **a, int n, int strategy, int *op_counts);
 int			*execute_sort(t_stack **a, int n, int strategy, int *flags);
+void		run_and_output(t_stack **a, int *flags, int count, double dis);
 
 /* bench.c */
 int			total_from_counts(int *op_counts);

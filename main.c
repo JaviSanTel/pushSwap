@@ -43,8 +43,6 @@ t_stack	*prepare_stack(int *num, int count)
 	free(num);
 	if (!a && count > 0)
 		error_exit();
-	if (count == 1)
-		free_stack(a);
 	return (a);
 }
 
@@ -83,14 +81,7 @@ int	main(int argc, char **argv)
 	validate_num(flag_coun, num, count);
 	a = prepare_stack(num, count);
 	dis = list_disorder(a);
-	if (count > 1)
-	{
-		if (flag_coun[4] > 0)
-			print_bench(flag_coun, dis, execute_sort(&a, count,
-					choose_strategy(flag_coun, dis), flag_coun));
-		else
-			free(execute_sort(&a, count,
-					choose_strategy(flag_coun, dis), flag_coun));
-	}
+	run_and_output(&a, flag_coun, count, dis);
+	free_stack (a);
 	return (0);
 }

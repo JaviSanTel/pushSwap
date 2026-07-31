@@ -58,6 +58,21 @@ int	*execute_sort(t_stack **a, int n, int strategy, int *flags)
 		run_small_sort(a, n, op_counts);
 	else
 		run_strategy_sort(a, n, strategy, op_counts);
-	free_stack(*a);
 	return (op_counts);
+}
+
+void	run_and_output(t_stack **a, int *flags, int count, double dis)
+{
+	if (count <= 1 || dis == 0.0)
+	{
+		if (count > 1 && flags[4] > 0)
+			print_bench(flags, dis, init_counts());
+		return ;
+	}
+	if (flags[4] > 0)
+		print_bench(flags, dis, execute_sort(a, count,
+			choose_strategy(flags, dis), flags));
+	else
+		free(execute_sort(a, count, 
+			choose_strategy(flags, dis), flags));
 }

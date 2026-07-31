@@ -25,6 +25,18 @@ t_stack	*new_node(int value)
 	return (node);
 }
 
+void	link_node(t_stack **head, t_stack **last, t_stack *node)
+{
+	if (*head == NULL)
+		*head = node;
+	else
+	{
+		(*last)->next = node;
+		node->prev = *last;
+	}
+	*last = node;
+}
+
 t_stack	*build_list(int *num, int count)
 {
 	t_stack	*head;
@@ -43,14 +55,7 @@ t_stack	*build_list(int *num, int count)
 			free_stack(head);
 			return (NULL);
 		}
-		else if (head == NULL)
-			head = node;
-		else
-		{
-			last->next = node;
-			node->prev = last;
-		}
-		last = node;
+		link_node(&head, &last, node);
 		i++;
 	}
 	return (head);

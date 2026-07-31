@@ -12,11 +12,25 @@
 
 #include "push_swap.h"
 
+int	count_smaller(int *num, int count, int idx)
+{
+	int	j;
+	int	position;
+
+	position = 0;
+	j = 0;
+	while (j < count)
+	{
+		if (num[j] < num[idx])
+			position++;
+		j++;
+	}
+	return (position);
+}
+
 int	*psindex(int *num, int count)
 {
 	int	i;
-	int	j;
-	int	position;
 	int	*result;
 
 	i = 0;
@@ -28,15 +42,7 @@ int	*psindex(int *num, int count)
 	}
 	while (i < count)
 	{
-		position = 0;
-		j = 0;
-		while (j < count)
-		{
-			if (num[j] < num[i])
-				position++;
-			j++;
-		}
-		result[i] = position + 1;
+		result[i] = count_smaller(num, count, i) + 1;
 		i++;
 	}
 	free(num);
