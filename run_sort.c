@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_sort.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 13:20:40 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/30 13:25:03 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/07/31 21:30:06 by javiesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	run_and_output(t_stack **a, int *flags, int count, double dis)
 	}
 	if (flags[4] > 0)
 		print_bench(flags, dis, execute_sort(a, count,
-			choose_strategy(flags, dis), flags));
+				choose_strategy(flags, dis), flags));
 	else
-		free(execute_sort(a, count, 
-			choose_strategy(flags, dis), flags));
+		free(execute_sort(a, count,
+				choose_strategy(flags, dis), flags));
 }
