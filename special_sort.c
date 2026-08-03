@@ -6,7 +6,7 @@
 /*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 19:22:54 by javiesan          #+#    #+#             */
-/*   Updated: 2026/07/30 15:59:37 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/08/03 18:36:11 by javiesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,17 @@ void	special_sort(t_stack **a, t_stack **b, int count, int *op_counts)
 	int	delay;
 
 	if (count == 2)
-		swap_a(*a);
+		op_swap_a(*a, op_counts);
 	delay = count - 3;
 	while (count > 3)
 	{
 		pos = find_min_position(*a);
 		rotate_to_top(*a, pos, count, op_counts);
-		pb(a, b);
-		op_counts[OP_PB]++;
+		op_push_b(a, b, op_counts);
 		count--;
 	}
 	if (count == 3)
 		order_special(a, delay, op_counts);
 	while (delay > 0 && delay--)
-	{
-		pa(a, b);
-		op_counts[OP_PA]++;
-	}
+		op_push_a(a, b, op_counts);
 }

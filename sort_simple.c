@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_simple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopez-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: javiesan <javiesan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 12:29:56 by plopez-l          #+#    #+#             */
-/*   Updated: 2026/07/30 12:30:02 by plopez-l         ###   ########.fr       */
+/*   Updated: 2026/08/03 18:24:15 by javiesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,12 @@ void	rotate_to_top(t_stack *a, int pos, int size, int *op_counts)
 	if (pos <= size - pos)
 	{
 		while (i++ < pos)
-		{
-			rotate_a(a);
-			op_counts[OP_RA]++;
-		}
+			op_rotate_a(a, op_counts);
 	}
 	else
 	{
 		while (i++ < size - pos)
-		{
-			reverse_rotate_a(a);
-			op_counts[OP_RRA]++;
-		}
+			op_rev_rotate_a(a, op_counts);
 	}
 }
 
@@ -69,15 +63,13 @@ void	sort_simple(t_stack **a, t_stack **b, int n, int *op_counts)
 	{
 		pos = find_min_position(*a);
 		rotate_to_top(*a, pos, n - i, op_counts);
-		pb(a, b);
-		op_counts[OP_PB]++;
+		op_push_b(a, b, op_counts);
 		i++;
 	}
 	i = 0;
 	while (i < n)
 	{
-		pa(a, b);
-		op_counts[OP_PA]++;
+		op_push_a(a, b, op_counts);
 		i++;
 	}
 }
