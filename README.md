@@ -2,197 +2,215 @@
 
 # push_swap
 
-## Description
+## Descripción
 
-`push_swap` sorts a stack of integers into ascending order using **only two
-stacks** (`a` and `b`) and a limited set of stack operations, printing the
-sequence of instructions needed to sort the input.
+`push_swap` ordena una pila de números enteros en orden ascendente usando
+**únicamente dos pilas** (`a` y `b`) y un conjunto limitado de operaciones,
+mostrando por pantalla la secuencia de instrucciones necesaria para ordenarla.
 
-The goal of the project is to explore **algorithmic complexity** in a very
-concrete way: complexity is measured in the number of **push_swap operations**
-produced, not in the theoretical cost of a classic array algorithm.
+El objetivo del proyecto es explorar la **complejidad algorítmica** de una forma
+muy concreta: la complejidad se mide en el **número de operaciones de push_swap**
+que el programa produce, no en el coste teórico de un algoritmo clásico sobre
+arrays.
 
-This implementation goes beyond a single algorithm: it integrates **four
-sorting strategies of different complexity classes** plus an **adaptive
-dispatcher** that selects one at runtime based on how disordered the input is.
+Esta implementación integra **tres algoritmos de ordenación** de clases de
+complejidad distintas, más una **estrategia adaptativa** que no ordena por sí
+misma, sino que actúa como **selector**: calcula el desorden de la entrada y
+decide en tiempo de ejecución cuál de los tres algoritmos conviene usar.
 
-## Instructions
+## Instrucciones
 
-**Build** (compiles the bundled libft first, then the project):
+**Compilación** (primero se compila la libft incluida y después el proyecto):
 
 ```bash
-make        # builds push_swap
-make bonus  # builds the checker (bonus)
-make clean  # removes object files
-make fclean # removes objects, libft.a and binaries
+make        # genera el ejecutable push_swap
+make clean  # elimina los ficheros objeto (.o)
+make fclean # elimina los .o, la libft.a y el binario
 make re     # fclean + make
 ```
 
-**Run:**
+**Ejecución:**
 
 ```bash
-./push_swap 3 1 5 2 4          # integers as separate arguments
-./push_swap "3 1 5 2 4"        # or as a single quoted string
-./push_swap --complex $ARG     # forcing a strategy
-./push_swap --bench $ARG       # metrics to stderr
+./push_swap 3 1 5 2 4          # enteros como argumentos separados
+./push_swap "3 1 5 2 4"        # o como una única cadena entrecomillada
+./push_swap --complex $ARG     # forzando una estrategia concreta
+./push_swap --bench $ARG       # métricas por la salida de error
 ```
 
-**Strategy selector** (optional; `--adaptive` is the default):
+**Selector de estrategia** (opcional; por defecto se usa `--adaptive`):
 
-| Flag | Strategy | Complexity class |
-|------|----------|------------------|
-| `--simple`   | Selection sort            | O(n²) |
-| `--medium`   | Chunk sort                | O(n√n) |
-| `--complex`  | Binary radix (LSD)        | O(n·log n) |
-| `--adaptive` | Dispatcher (default)      | chosen by disorder |
-| `--bench`    | Benchmark metrics (stderr)| — |
+| Flag | Estrategia | Clase de complejidad |
+|------|------------|----------------------|
+| `--simple`   | Ordenación por selección   | O(n²) |
+| `--medium`   | Ordenación por chunks      | O(n√n) |
+| `--complex`  | Radix binario (LSD)        | O(n·log n) |
+| `--adaptive` | Selector (por defecto)     | según el desorden |
+| `--bench`    | Métricas de benchmark      | — |
 
-- With no arguments, the program prints nothing and returns control.
-- On invalid input (non-integers, values out of `int` range, duplicates) it
-  prints `Error` to **stderr**.
-- If the stack is already sorted, it prints nothing (0 operations).
-- Normal operations go to **stdout**; benchmark metrics go to **stderr**.
+Comportamiento:
 
-## Common preprocessing: rank normalization
+- Sin argumentos, el programa no muestra nada y devuelve el control.
+- Ante una entrada inválida (valores no enteros, fuera del rango de `int` o
+  duplicados) muestra `Error` por la **salida de error**.
+- Si la pila ya está ordenada, no muestra nada (0 operaciones).
+- Las operaciones se escriben en la **salida estándar**; las métricas del modo
+  benchmark van a la **salida de error**.
 
-Before any strategy runs, the input is normalized to **ranks `1..n`**
-(`psindex`): each value is replaced by its position in the sorted order. This
-is key because:
+## Preprocesado común: normalización a rangos
 
-- It removes negative numbers and `INT` overflow concerns from the **radix**
-  (bits of a positive rank are trivial to read; the number of bits is exactly
-  those of `n`).
-- It turns chunk boundaries into simple contiguous value ranges for the
-  **chunk sort**.
-- Sorting the ranks is equivalent to sorting the originals, since ranks
-  preserve relative order.
+Antes de ejecutar cualquier estrategia, la entrada se normaliza a **rangos
+`1..n`** (`psindex`): cada valor se sustituye por la posición que ocupa en el
+orden final. Esto es clave porque:
 
-## The four strategies (algorithm justification)
+- Elimina los números negativos y los problemas de desbordamiento de `int` en el
+  **radix** (los bits de un rango positivo son triviales de leer, y el número de
+  bits necesarios es exactamente el de `n`).
+- Convierte los límites de cada chunk en rangos de valores contiguos y sencillos
+  para la **ordenación por chunks**.
+- Ordenar los rangos equivale a ordenar los valores originales, ya que los
+  rangos conservan el orden relativo.
+
+## Los tres algoritmos (justificación)
 
 ### 1. Simple — O(n²)
 
-Selection by minimum extraction: repeatedly find the smallest remaining value,
-bring it to the top with the shorter rotation, and push it to `b`; then bring
-everything back to `a`. It is O(n²) because of the repeated linear search for
-the minimum. It only needs to sort **correctly**; it is the fallback and the
-easiest to reason about.
+Ordenación por selección del mínimo: se busca repetidamente el valor más pequeño
+que queda, se lleva a la cima con la rotación más corta y se empuja a `b`;
+después se devuelve todo a `a`. Es O(n²) por la búsqueda lineal del mínimo en
+cada vuelta. Solo necesita ordenar **correctamente**: es la estrategia de
+respaldo y la más sencilla de razonar.
 
-### 2. Intermediate — O(n√n): chunk sort
+### 2. Intermedio — O(n√n): ordenación por chunks
 
-Values are split into chunks whose size is anchored to **√n**. All the reasoning
-is verified by simulation:
+Los valores se reparten en chunks cuyo tamaño está anclado a **√n**. Todo el
+razonamiento se verificó mediante simulación:
 
-- **Chunk sizes are decreasing with a floor**: they start at ~`3·√n` and shrink
-  by a fixed step down to a floor of ~`√n`. Starting big empties `a` early
-  (which benefits every later pass); the floor prevents a huge leftover chunk
-  at the end (whose return cost is quadratic in its size). The number of chunks
-  and their sizes stay Θ(√n), which is what keeps the class at **O(n√n)**.
-- **Push phase**: each chunk is split by its midpoint; the upper half is pushed
-  straight to the top of `b`, the lower half is pushed and sent to the bottom
-  (`pb` + `rb`). This pre-partitions `b`.
-- **Return phase**: repeatedly locate the largest remaining value in `b` and
-  bring it to the top using the **shorter rotation direction** (`rb` if it is
-  near the top, `rrb` if near the bottom), then `pa`. Choosing the shorter
-  direction is the single biggest optimization of the return.
+- **Los tamaños son decrecientes con un suelo**: empiezan en ~`3·√n` y bajan con
+  un paso fijo hasta un suelo de ~`√n`. Empezar con chunks grandes vacía `a`
+  pronto, lo que beneficia a todas las pasadas siguientes; el suelo evita que
+  quede un chunk enorme al final, cuyo coste de retorno sería cuadrático
+  respecto a su tamaño. Tanto el número de chunks como sus tamaños se mantienen
+  en Θ(√n), que es lo que fija la clase en **O(n√n)**.
+- **Fase de empuje**: cada chunk se parte por su punto medio; la mitad alta se
+  empuja directamente a la cima de `b` y la mitad baja se empuja y se manda al
+  fondo (`pb` + `rb`). Así `b` queda pre-particionada.
+- **Fase de retorno**: se localiza el mayor valor que queda en `b` y se lleva a
+  la cima usando **la dirección de rotación más corta** (`rb` si está cerca de la
+  cima, `rrb` si está cerca del fondo), y después `pa`. Elegir la dirección más
+  corta es, con diferencia, la mayor optimización del retorno.
 
-### 3. Complex — O(n·log n): binary radix (LSD)
+### 3. Complejo — O(n·log n): radix binario (LSD)
 
-Works on the positive ranks. For each bit, from least to most significant, one
-full pass moves elements with bit `0` to `b` (`pb`) and keeps elements with bit
-`1` in `a` (`ra`); then all of `b` is pushed back to `a` (`pa`).
+Trabaja sobre los rangos positivos. Por cada bit, del menos al más
+significativo, una pasada completa manda a `b` los elementos con ese bit a `0`
+(`pb`) y mantiene en `a` los que lo tienen a `1` (`ra`); después se devuelve
+todo `b` a `a` (`pa`).
 
-- A bit is read directly with `(value >> bit) & 1` — an `int` is already binary,
-  nothing is "converted".
-- The number of passes is `⌈log₂ n⌉`, computed by counting how many powers of
-  two fit under `n`.
-- **Stability**: pushing to `b` reverses order and pushing back reverses it
-  again, so the two inversions cancel and the order achieved by previous bits is
-  preserved — provided **all** of `b` is emptied on every pass.
-- Its cost is essentially **independent of the initial disorder** (it always
-  performs all passes), which makes it the robust choice for highly disordered
-  input.
+- Un bit se lee directamente con `(valor >> bit) & 1`: un `int` **ya está en
+  binario** en memoria, no se convierte nada.
+- El número de pasadas es `⌈log₂ n⌉`, calculado contando cuántas potencias de
+  dos caben por debajo de `n`.
+- **Estabilidad**: empujar a `b` invierte el orden y devolverlo lo invierte otra
+  vez, de modo que las dos inversiones se cancelan y se conserva el orden
+  conseguido por los bits anteriores. Esto solo se cumple si se vacía **toda**
+  `b` en cada pasada.
+- Su coste es prácticamente **independiente del desorden inicial** (siempre
+  ejecuta todas las pasadas), lo que lo convierte en la opción robusta cuando la
+  entrada está muy desordenada.
 
-### 4. Adaptive — dispatcher by disorder
+## La estrategia adaptativa (el selector)
 
-The default strategy computes the disorder index and routes to a class that
-matches the difficulty of the input:
+No es un cuarto algoritmo de ordenación: es la estrategia que el programa usa
+por defecto y que **decide cuál de los tres anteriores ejecutar**. Calcula el
+índice de desorden de la entrada y enruta según su valor:
 
-| Disorder | Regime | Strategy used |
-|----------|--------|---------------|
-| already sorted | — | 0 operations |
-| `< 0.2` | low  | O(n) regime |
-| `0.2 – 0.5` | medium | chunk — O(n√n) |
-| `≥ 0.5` | high | radix — O(n·log n) |
+| Desorden | Régimen | Algoritmo elegido |
+|----------|---------|-------------------|
+| ya ordenada | — | ninguno (0 operaciones) |
+| `< 0.2` | bajo | simple — O(n²) |
+| `0.2 – 0.5` | medio | chunks — O(n√n) |
+| `≥ 0.5` | alto | radix — O(n·log n) |
 
-The idea is to increase algorithmic power as the input gets harder: a nearly
-sorted list barely needs work, whereas a fully scrambled one has no structure
-to exploit and is best handled by the strategy with the best asymptotic scaling.
+La idea es aumentar la potencia algorítmica a medida que la entrada se complica:
+una lista casi ordenada apenas necesita trabajo, mientras que una completamente
+revuelta no tiene estructura que aprovechar y conviene resolverla con el
+algoritmo que mejor escala asintóticamente.
 
-## Disorder index
+## Índice de desorden
 
-A number in `[0, 1]` measuring how far the stack is from sorted, computed
-**before any move**. It counts, over every pair `(i, j)` with `i < j`, how many
-are in the wrong order (`a[i] > a[j]`) and divides by the total number of pairs
-`n·(n-1)/2`. Sorted → 0; fully reversed → 1.
+Es un número entre `0` y `1` que mide lo lejos que está la pila de estar
+ordenada, y se calcula **antes de hacer ningún movimiento**. Recorre todos los
+pares `(i, j)` con `i < j`, cuenta cuántos están en mal orden (`a[i] > a[j]`) y
+divide entre el número total de pares, `n·(n-1)/2`. Una lista ordenada da `0`;
+una completamente invertida da `1`.
 
-It is used both by the adaptive dispatcher and, reported as a percentage, by the
-`--bench` mode.
+Lo usan tanto el selector adaptativo como el modo `--bench`, que lo muestra en
+forma de porcentaje.
 
-## Justification of the thresholds
+## Justificación de los umbrales
 
-The regimes (`0.2` and `0.5`) follow the complexity targets required by the
-subject. Two empirical observations from simulation shaped the design:
+Los umbrales (`0.2` y `0.5`) siguen los objetivos de complejidad que exige el
+enunciado para cada régimen. Dos observaciones empíricas obtenidas por
+simulación condicionaron el diseño:
 
-- The chunk sort's cost is **not monotonic** in the disorder index: a fully
-  reversed list is actually its *easiest* case (strong structure), while a
-  uniformly random input (~0.5 disorder) is its *worst* case — and that random
-  case is exactly what the evaluator uses.
-- The disorder index is a **lossy** summary: two lists with the same index but
-  different structure can cost very differently. It is a useful routing signal,
-  not an exact predictor.
+- El coste de la ordenación por chunks **no crece de forma monótona** con el
+  índice de desorden: una lista completamente invertida es en realidad su caso
+  *más fácil* (tiene mucha estructura), mientras que una entrada aleatoria
+  uniforme (desorden ≈ 0.5) es su *peor caso*, que es justamente el que se usa
+  en la evaluación.
+- El índice de desorden es un resumen **con pérdida de información**: dos listas
+  con el mismo índice pero distinta estructura pueden costar muy diferente. Es
+  una buena señal para enrutar, pero no un predictor exacto del coste.
 
-At the evaluation sizes the intermediate (chunk) sort actually produces fewer
-operations than the complex (radix) sort, because at n ≤ 500 the constant
-factors dominate over the exponent (`log₂ 500 ≈ 9` vs `√500 ≈ 22`). The
-crossover where radix's O(n·log n) overtakes the chunk's O(n√n) sits around
-**n ≈ 1000–1500**; from there radix scales visibly better (from n = 500 to
-n = 5000 radix grows ~×15 while the chunk grows ~×33). The adaptive dispatcher
-still routes high disorder to radix to honour the subject's complexity mandate,
-which guarantees a comfortable pass on any input size.
+En los tamaños de evaluación, el algoritmo intermedio (chunks) produce en
+realidad menos operaciones que el complejo (radix), porque con n ≤ 500 pesan más
+las constantes que el exponente (`log₂ 500 ≈ 9` frente a `√500 ≈ 22`). El punto
+de cruce en el que el O(n·log n) del radix supera al O(n√n) de los chunks está
+en torno a **n ≈ 1000–1500**; a partir de ahí el radix escala visiblemente mejor
+(de n = 500 a n = 5000 el radix multiplica sus operaciones por ~15 mientras que
+los chunks lo hacen por ~33). Aun así, el selector adaptativo enruta el desorden
+alto al radix para respetar el requisito de clase de complejidad del enunciado,
+lo que garantiza un margen cómodo con cualquier tamaño de entrada.
 
-## Performance
+## Rendimiento
 
-Measured operation counts on random input (checker-verified, no leaks):
+Número de operaciones medido con entradas aleatorias (verificado con el checker
+y sin fugas de memoria):
 
 | n | 100 | 500 |
 |---|-----|-----|
-| radix        | 1081 | 6778 |
-| chunk         | ~620 | ~5500 |
-| thresholds    | pass <2000 / good <1500 / **excellent <700** | pass <12000 / good <8000 / **excellent <5500** |
+| radix  | 1081 | 6778 |
+| chunks | ~620 | ~5500 |
+| umbrales | supera <2000 / bueno <1500 / **excelente <700** | supera <12000 / bueno <8000 / **excelente <5500** |
 
-## Resources
+## Recursos
 
-- Push_swap subject (42 campus custom version, v1.0).
-- Radix sort (LSD) and selection/insertion sort — classic algorithm references.
-- Kendall tau distance / inversion counting — for the disorder index.
-- **AI usage**: an AI assistant was used as a *tutor and verification tool*, not
-  as a code generator. Concretely, it was used to (a) explain concepts
-  (variadic bit operations, radix stability, complexity classes), (b)
-  **simulate and benchmark** algorithm designs in Python before implementing
-  them in C (chunk-size schemes, disorder sweeps, the chunk-vs-radix crossover),
-  and (c) review our own C code for bugs, memory leaks (AddressSanitizer) and
-  correctness by replaying the generated operations. Every algorithm was
-  **designed and implemented by us**; the AI never wrote the delivered code, and
-  we can explain and defend every line.
+- Enunciado de Push_swap (versión propia del campus, v1.0).
+- Radix sort (LSD) y ordenación por selección/inserción — referencias clásicas
+  de algoritmia.
+- Distancia de Kendall-tau / conteo de inversiones — para el índice de desorden.
+- **Uso de IA**: se ha utilizado un asistente de IA como *tutor y herramienta de
+  verificación*, nunca como generador de código. En concreto, se usó para (a)
+  explicar conceptos (operaciones a nivel de bits, estabilidad del radix, clases
+  de complejidad), (b) **simular y medir** los diseños algorítmicos en Python
+  antes de implementarlos en C (esquemas de tamaño de chunk, barridos del índice
+  de desorden, el punto de cruce entre chunks y radix), y (c) revisar nuestro
+  propio código C en busca de errores, fugas de memoria (AddressSanitizer) y
+  fallos de corrección, reproduciendo las operaciones generadas. Todos los
+  algoritmos fueron **diseñados e implementados por nosotros**; la IA no escribió
+  el código entregado y podemos explicar y defender cada línea.
 
-## Contributions
+## Contribuciones
 
-This project was completed by two students working together; both understand
-and can defend the whole codebase.
+Este proyecto ha sido realizado por dos estudiantes trabajando conjuntamente;
+ambos comprenden y pueden defender la totalidad del código.
 
-- **javiesan** — Algorithm design and implementation: the sorting cores (radix
-  O(n·log n), chunk O(n√n)), rank normalization (`psindex`), the disorder index,
-  and the design/tuning of the chunk-size scheme (simulated and benchmarked).
-- **plopez-l** — Infrastructure: argument parsing and validation, the stack
-  structure and the eleven operations, the strategy dispatcher, benchmark mode,
-  small-n and edge-case handling, error handling and integration.
+- **javiesan** — Diseño e implementación de los algoritmos: los núcleos de
+  ordenación (radix O(n·log n) y chunks O(n√n)), la normalización a rangos
+  (`psindex`), el índice de desorden, y el diseño y ajuste del esquema de
+  tamaños de chunk (simulado y medido).
+- **plopez-l** — Infraestructura: análisis y validación de argumentos, la
+  estructura de las pilas y las once operaciones, el selector de estrategia, el
+  modo benchmark, el tratamiento de los casos pequeños y los casos límite, la
+  gestión de errores y la integración.
