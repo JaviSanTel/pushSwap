@@ -8,3 +8,8 @@ a.out
 push_swap
 checker
 checker_linux
+
+# Sistema y archivos sueltos
+.DS_Store
+*.rar
+bench.txt
